@@ -213,6 +213,18 @@ function handlePopupSubmit(event) {
     closePremiumPopup();
 }
 
+function playMusic(audioId){
+    // Ambil semua elemen audio yang ada di halaman
+    const allAudios = document.querySelectorAll('audio');
+    const currentAudio = document.getElementById(audioId);
+
+    // Matikan audio lain yang sedang jalan (biar suaranya ga tabrakan)
+    allAudios.forEach(audio => {
+        audio.pause();
+        audio.currentTime =0; // Reset durasi ke awal
+    }
+});
+
 </script>    
 
 </body>
