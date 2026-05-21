@@ -108,14 +108,33 @@
         </div>
         </footer>
 
-    <div id="welcomePopup" class="popup-overlay">
-        <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h2>Selamat Datang! 👋</h2>
-            <p>Terima kasih telah berkunjung. Dapatkan diskon 10% untuk pembelian pertama Anda!</p>
-            <button onclick="closePopup()">Mulai Jelajah</button>
+    <!-- Tambahkan link ikon ini di dalam tag <head> kamu -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<!-- Struktur Utama Popup -->
+<div id="creativePopup" class="popup-overlay">
+    <div class="popup-box">
+        <!-- Tombol Tutup Modern -->
+        <button class="close-icon" onclick="closePremiumPopup()"><i class="fas fa-times"></i></button>
+        
+        <!-- Bagian Visual/Grafis -->
+        <div class="popup-header-art">
+            <i class="fas fa-gift gift-icon"></i>
+        </div>
+        
+        <!-- Konten Utama -->
+        <div class="popup-body">
+            <h3>Spesial Untuk Kamu! ✨</h3>
+            <p>Gabung bersama komunitas kami hari ini dan dapatkan <strong>E-Book Premium Gratis</strong> langsung di emailmu.</p>
+            
+            <!-- Form Interaktif -->
+            <form class="popup-form" onsubmit="handlePopupSubmit(event)">
+                <input type="email" placeholder="Masukkan email terbaikmu..." required>
+                <button type="submit">Klaim Hadiah <i class="fas fa-arrow-right"></i></button>
+            </form>
         </div>
     </div>
+</div>
 
 <script>
     const audio = document.getElementById("myAudio");
@@ -150,14 +169,36 @@
         document.getElementById("currentTime").innerHTML = mins + ":" + (secs < 10 ? '0' : '') + secs;
     };
 
-    // Munculkan popup saat halaman selesai dimuat
-window.onload = function() {
-    document.getElementById("welcomePopup").style.display = "flex";
-};
+    document.addEventListener("DOMContentLoaded", function () {
+    // Cek apakah pengunjung sudah pernah menutup popup hari ini
+    const isPopupClosed = localStorage.getItem("premiumPopupClosed");
 
-// Fungsi untuk menutup popup
-function closePopup() {
-    document.getElementById("welcomePopup").style.display = "none";
+    if (!isPopupClosed) {
+        // Berikan jeda waktu 2 detik (2000 ms) sebelum muncul demi kenyamanan user
+        setTimeout(() => {
+            const popup = document.getElementById("creativePopup");
+            popup.classList.add("show");
+        }, 2000);
+    }
+});
+
+// Fungsi Tutup Popup
+function closePremiumPopup() {
+    const popup = document.getElementById("creativePopup");
+    popup.classList.remove("show");
+    
+    // Sembunyikan elemen setelah animasi selesai
+    setTimeout(() => { popup.style.display = "none"; }, 400);
+
+    // Ingat pilihan user selama 24 jam agar tidak muncul lagi
+    localStorage.setItem("premiumPopupClosed", "true");
+}
+
+// Fungsi ketika form diisi
+function handlePopupSubmit(event) {
+    event.preventDefault();
+    alert("Terima kasih! Link unduhan sudah dikirim ke email kamu.");
+    closePremiumPopup();
 }
 
 </script>
