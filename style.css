@@ -400,3 +400,13 @@ img {
 /* Class pembantu untuk memicu animasi lewat JS */
 .popup-overlay.show { display: flex; opacity: 1; }
 .popup-overlay.show .popup-box { transform: scale(1); }
+
+.project-card {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+/* Efek hover opsional biar makin mirip Spotify */
+.project-card:hover {
+    transform: scale(1.02); /* Card agak membesar sedikit saat diarahkan kursor */
+}
